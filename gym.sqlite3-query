@@ -1,0 +1,103 @@
+-- database: ./gym.db
+-- Use the ▷ button in the top right corner to run the entire file.
+CREATE TABLE
+    trainers (
+        trainer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        trainer_name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        speciality TEXT,
+        hourly_rate REAL CHECK (hourly_rate > 0),
+        hire_date TEXT NOT NULL
+    );
+
+CREATE TABLE
+    members (
+        member_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        full_name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        phone TEXT,
+        membership TEXT DEFAULT 'basic',
+        join_date TEXT NOT NULL,
+        is_active INTEGER DEFAULT 1,
+        loyalty_pts INTEGER DEFAULT 0
+    );
+
+CREATE TABLE
+    classes (
+        class_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        class_name TEXT NOT NULL,
+        trainer_id INTEGER NOT NULL,
+        day TEXT NOT NULL,
+        start_time TEXT NOT NULL,
+        capacity INTEGER DEFAULT 20,
+        FOREIGN KEY (trainer_id) REFERENCES trainers (trainer_id)
+    );
+
+CREATE TABLE
+    bookings (
+        booking_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        member_id INTEGER NOT NULL,
+        class_id INTEGER NOT NULL,
+        booking_date TEXT NOT NULL,
+        status TEXT DEFAULT 'confirmed',
+        attended INTEGER DEFAULT 0,
+        FOREIGN KEY (member_id) REFERENCES members (member_id),
+        FOREIGN KEY (class_id) REFERENCES classes (class_id)
+    );
+
+CREATE TABLE
+    payments (
+        payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        member_id INTEGER NOT NULL,
+        amount REAL NOT NULL CHECK (amount > 0),
+        pay_date TEXT NOT NULL,
+        method TEXT DEFAULT 'card',
+        FOREIGN KEY (member_id) REFERENCES members (member_id)
+    );
+
+INSERT INTO trainers (trainer_name, email, speciality, hourly_rate, hire_date)
+VALUES
+    ('Ms Priya Patel', 'priya@peakfitness.com', 'Yoga & Pilates', 28.00, '2022-03-10'),
+    ('Mr James Lee', 'james@peakfitness.com', 'HIIT & Spinning', 32.50, '2021-06-15'),
+    ('Ms Fatima Hassan', 'fatima@peakfitness.com', 'Boxing & Strength', 30.00, '2023-01-20');
+
+
+
+INSERT INTO members (full_name, email, phone, membership, join_date, loyalty_pts)
+VALUES
+('Alice Brown', 'alice@email.com', '07700111222', 'premium', '2024-01-15', 240),
+('Bob Smith', 'bob@email.com', '07700222333', 'basic', '2024-03-20', 55),
+('Carol White', 'carol@email.com', NULL, 'gold', '2024-02-10', 180),
+('Dan Jones', 'dan@email.com', '07700444555', 'basic', '2024-04-05', 20),
+('Eve Clarke', 'eve@email.com', '07700555666', 'premium', '2024-01-28', 310),
+('Frank Osei', 'frank@email.com', '07700666777', 'gold', '2024-05-12', 95),
+('Grace Kim', 'grace@email.com', NULL, 'basic', '2024-06-01', 10),
+('Harry Singh', 'harry@email.com', '07700888999', 'premium', '2024-02-20', 175);
+
+INSERT INTO classes (class_name, trainer_id, day, start_time, capacity)
+VALUES
+('Yoga Flow', 1, 'Monday','09:00', 15 ),
+('HIIT Blast', 2, 'Tuesday', '18:00', 20),
+('Pilates Core', 1, 'Wednesday', '10:00', 12),
+('Spinning Power', 2, 'Thursday', '17:30', 18),
+('Boxing Fit', 3, 'Friday', '07:00', 10);
+
+INSERT INTO bookings (member_id, class_id, booking_date, status, attended) VALUES
+(1, 1, '2026-06-02', 'confirmed', 1),
+(1, 3, '2026-06-04', 'confirmed', 1),
+(2, 2, '2026-06-03', 'confirmed', 1),
+(3, 1, '2026-06-02', 'confirmed', 0),
+(3, 4, '2026-06-05', 'confirmed', 1),
+(4, 2, '2026-06-03', 'cancelled', 0),
+(5, 5, '2026-06-06', 'confirmed', 1),
+(5, 2, '2026-06-03', 'confirmed', 1),
+(6, 4, '2026-06-05', 'confirmed', 0),
+(8, 1, '2026-06-02', 'confirmed', 1);
+
+INSERT INTO payments (member_id, amount, pay_date, method) VALUES
+(1, 49.99, '2026-06-01', 'card'),
+(2, 19.99, '2026-06-01', 'cash'),
+(3, 34.99, '2026-06-01', 'card'),
+(5, 49.99, '2026-06-01', 'card'),
+(6, 34.99, '2026-06-02', 'transfer'),
+(8, 49.99, '2026-06-02', 'card');
