@@ -110,3 +110,25 @@ FROM members;
 
 SELECT email, full_name
 FROM members;
+
+SELECT
+full_name as 'NAME',
+membership as 'MEMBERSHIP'
+FROM members;
+
+SELECT full_name ||  ' (' || membership || ')' as 'Member Info'
+FROM members;
+
+SELECT * FROM members
+WHERE membership = 'premium';
+
+
+SELECT 
+full_name FROM members WHERE membership = 'basic';
+
+SELECT *FROM members
+WHERE full_name LIKE 'A%'
+OR email LIKE '%@gym.com';
+
+SELECT * FROM members
+WHERE loyalty_pts BETWEEN 50 AND 100;
