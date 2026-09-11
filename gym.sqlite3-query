@@ -151,3 +151,14 @@ SELECT membership, full_name, loyalty_pts
 FROM members
 ORDER BY membership ASC, loyalty_pts DESC;
 
+SELECT * FROM members LIMIT 3;
+
+SELECT full_name, loyalty_pts
+FROM members
+ORDER BY loyalty_pts DESC 
+LIMIT 3;
+
+SELECT * FROM members
+ORDER BY member_id
+LIMIT 2 OFFSET 2;
+
