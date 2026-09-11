@@ -132,3 +132,9 @@ OR email LIKE '%@gym.com';
 
 SELECT * FROM members
 WHERE loyalty_pts BETWEEN 50 AND 100;
+
+SELECT * FROM members
+WHERE membership IN ('gold', 'premium');
+
+SELECT * FROM classes
+WHERE class_id IN (1, 2, 3);
