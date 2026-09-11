@@ -138,3 +138,16 @@ WHERE membership IN ('gold', 'premium');
 
 SELECT * FROM classes
 WHERE class_id IN (1, 2, 3);
+
+SELECT full_name, loyalty_pts
+FROM members
+
+
+ORDER BY full_name;SELECT full_name, loyalty_pts
+FROM members
+ORDER BY loyalty_pts DESC;
+
+SELECT membership, full_name, loyalty_pts
+FROM members
+ORDER BY membership ASC, loyalty_pts DESC;
+
