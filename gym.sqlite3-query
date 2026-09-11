@@ -162,3 +162,17 @@ SELECT * FROM members
 ORDER BY member_id
 LIMIT 2 OFFSET 2;
 
+SELECT COUNT(*) AS total_members FROM members;
+
+SELECT COUNT(phone) AS have_phone FROM members;
+
+SELECT SUM(loyalty_pts) AS total_pts FROM members;
+
+SELECT ROUND(AVG(loyalty_pts),1) AS avg_pts
+FROM members;
+
+SELECT 
+MIN(loyalty_pts) AS lowest, 
+MAX(loyalty_pts) AS highest
+
+
