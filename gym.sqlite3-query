@@ -101,3 +101,12 @@ INSERT INTO payments (member_id, amount, pay_date, method) VALUES
 (5, 49.99, '2026-06-01', 'card'),
 (6, 34.99, '2026-06-02', 'transfer'),
 (8, 49.99, '2026-06-02', 'card');
+
+SELECT *
+FROM members;
+
+SELECT full_name, email, membership
+FROM members;
+
+SELECT email, full_name
+FROM members;
